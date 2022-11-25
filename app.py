@@ -61,8 +61,8 @@ st.markdown(f"""<style>
 
 
     button[kind='primary']{{
-        background-color:black;
-        opacity:0.8;
+        background-color:red;
+        opacity:0.9;
     }}
 
     #map_div{{
@@ -198,7 +198,7 @@ def main():
     st.markdown("Choose your dropoff and pickup locations: ")
     folium_map = display_map()
     with st.container():
-        map = st_folium(folium_map, width=800, height=300)
+        map = st_folium(folium_map, width=1000, height=500)
 
     position = map.get("last_clicked")
     col , _ , _ , _ = st.columns(4)
