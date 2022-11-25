@@ -58,6 +58,13 @@ st.markdown(f"""<style>
         background-position: top center;
         text-align: center;
     }}
+
+
+    button[kind='primary']{{
+        background-color:black;
+        opacity:0.8;
+    }}
+
     #map_div{{
             background-color:red;
     }}
@@ -194,7 +201,9 @@ def main():
         map = st_folium(folium_map, width=800, height=300)
 
     position = map.get("last_clicked")
-    location = st.button(st.session_state["message"],
+    col , _ , _ , _ = st.columns(4)
+    with col:
+        location = st.button(st.session_state["message"],
                          on_click=location_callback,
                          args=(position, ))
 
