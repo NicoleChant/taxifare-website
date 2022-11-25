@@ -164,6 +164,16 @@ def main():
     st.markdown(
         "Now travel anywhere with Le Petite Wagon Cab and get your fare price NOW!"
     )
+    st.markdown("Choose your dropoff and pickup locations: ")
+    folium_map = display_map()
+    with st.container():
+        map = st_folium(folium_map, width=1000, height=500)
+
+    position = map.get("last_clicked")
+    col , _ , _ , _ = st.columns(4)
+    with col:
+        pass
+
 
     with st.sidebar:
         st.markdown("""Choose your features: """)
@@ -176,6 +186,9 @@ def main():
                                 format="h:mm:ss a")
         pickup_datetime = datetime.combine(pickup_date,pickup_time)\
                                   .strftime("%Y-%m-%d %H:%M:%S")
+        location = st.button(st.session_state["message"],
+                             on_click=location_callback,
+                             args=(position, ))
 
     if st.session_state["clicks"] == 3:
         pickup_latitude = st.session_state["pickup_latitude"]
@@ -194,18 +207,6 @@ def main():
             st.success(f"Estimated Fare Amount: {predicted_fare:.2f}€")
         else:
             st.warning("Woooops! Something went wrong...")
-
-    st.markdown("Choose your dropoff and pickup locations: ")
-    folium_map = display_map()
-    with st.container():
-        map = st_folium(folium_map, width=1000, height=500)
-
-    position = map.get("last_clicked")
-    col , _ , _ , _ = st.columns(4)
-    with col:
-        location = st.button(st.session_state["message"],
-                         on_click=location_callback,
-                         args=(position, ))
 
 
 if __name__ == "__main__":
