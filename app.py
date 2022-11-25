@@ -60,8 +60,8 @@ st.markdown(f"""<style>
     }}
 
 
-    button[kind='primary']{{
-        background-color:red;
+    button {{
+        background-color:red !important;
         opacity:0.9;
     }}
 
@@ -92,6 +92,8 @@ st.markdown(f"""<style>
         opacity:0.98;
         background:linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
     }}
+
+
     [data-testid="stAppViewContainer"]
     {{
         background-image: url("data:image/jpg;base64,{bg_img}");
@@ -164,16 +166,6 @@ def main():
     st.markdown(
         "Now travel anywhere with Le Petite Wagon Cab and get your fare price NOW!"
     )
-    st.markdown("Choose your dropoff and pickup locations: ")
-    folium_map = display_map()
-    with st.container():
-        map = st_folium(folium_map, width=1000, height=500)
-
-    position = map.get("last_clicked")
-    col , _ , _ , _ = st.columns(4)
-    with col:
-        pass
-
 
     with st.sidebar:
         st.markdown("""Choose your features: """)
@@ -186,10 +178,8 @@ def main():
                                 format="h:mm:ss a")
         pickup_datetime = datetime.combine(pickup_date,pickup_time)\
                                   .strftime("%Y-%m-%d %H:%M:%S")
-        location = st.button(st.session_state["message"],
-                             on_click=location_callback,
-                             args=(position, ))
 
+    st.markdown("Choose your dropoff and pickup locations: ")
     if st.session_state["clicks"] == 3:
         pickup_latitude = st.session_state["pickup_latitude"]
         pickup_longitude = st.session_state["pickup_longitude"]
@@ -207,6 +197,21 @@ def main():
             st.success(f"Estimated Fare Amount: {predicted_fare:.2f}€")
         else:
             st.warning("Woooops! Something went wrong...")
+
+
+
+    folium_map = display_map()
+    with st.container():
+        map = st_folium(folium_map, width=1000, height=500)
+
+    position = map.get("last_clicked")
+    col , _ , _ , _ = st.columns(4)
+    with col:
+        location = st.button(st.session_state["message"],
+                             on_click=location_callback,
+                             args=(position, ))
+
+
 
 
 if __name__ == "__main__":
