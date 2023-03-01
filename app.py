@@ -15,7 +15,7 @@ st.set_page_config(APP_TITLE)
 def get_prediction(pickup_datetime, pickup_longitude: float,
                    pickup_latitude: float, dropoff_longitude: float,
                    dropoff_latitude: float, passenger_count: int) -> float:
-    url = 'https://taxifare.lewagon.ai/predict'
+    url = 'https://le-petite-wagon-f4hdpssb7a-ew.a.run.app/'
     key = ["2009-06-15 17:26:21.0000001"]
     data = {
         "key": key,
