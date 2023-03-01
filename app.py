@@ -15,7 +15,7 @@ st.set_page_config(APP_TITLE)
 def get_prediction(pickup_datetime, pickup_longitude: float,
                    pickup_latitude: float, dropoff_longitude: float,
                    dropoff_latitude: float, passenger_count: int) -> float:
-    url = 'https://le-petite-wagon-f4hdpssb7a-ew.a.run.app/'
+    url = 'https://le-petite-wagon-f4hdpssb7a-ew.a.run.app/predict'
     key = ["2009-06-15 17:26:21.0000001"]
     data = {
         "key": key,
@@ -29,7 +29,7 @@ def get_prediction(pickup_datetime, pickup_longitude: float,
     try:
         fare_prediction = requests.get(url, params=data)
         if fare_prediction.status_code == 200:
-            return fare_prediction.json().get("fare")
+            return fare_prediction.json().get("fare_amount")
     except requests.exceptions.RequestException:
         return "Woops! Server is busy!"
 
